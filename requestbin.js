@@ -6,8 +6,8 @@ module.exports = {
         var props = {}
         if( typeof isPrivate === 'function' ) {
             var callback = isPrivate
-        } else {
-            props.private = isPrivate === true || isPrivate == 1 ? '1' : '0'
+        } else if( isPrivate === true ) {
+            props.private = 'true'
         }
         talk( 'POST', 'bins', props, callback )
     },
