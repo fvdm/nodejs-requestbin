@@ -10,7 +10,7 @@ module.exports = {
 function talk( method, path, callback ) {
     var options = {
         host:   'requestb.in',
-        path:   '/'+ path,
+        path:   '/api/v1/'+ path,
         method: method
     }
     
