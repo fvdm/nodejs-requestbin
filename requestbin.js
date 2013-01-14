@@ -24,6 +24,7 @@ function talk( method, path, callback ) {
             data = data.toString('utf8').trim()
             if( res.statusCode >= 300 ) {
                 var err = new Error('HTTP error')
+                err.httpCode = res.statusCode
                 err.request = options
                 err.response = {
                     headers: res.headers,
