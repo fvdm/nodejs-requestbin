@@ -22,7 +22,7 @@ function talk( method, path, callback ) {
         res.on( 'close', function() { callback( new Error('disconnected') ) })
         res.on( 'end', function() {
             data = data.toString('utf8').trim()
-            if( response.statusCode >= 300 ) {
+            if( res.statusCode >= 300 ) {
                 var err = new Error('HTTP error')
                 err.request = options
                 err.response = {
