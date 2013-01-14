@@ -1,17 +1,41 @@
-var http = require('http')
+var http = require('http'),
+    querystring = require('querystring')
 
 module.exports = {
-    create:     function( callback ) { talk( 'POST', 'bins', callback ) },
+    create:     function( isPrivate, callback ) {
+        var props = {}
+        if( typeof isPrivate === 'function' ) {
+            var callback = isPrivate
+        } else {
+            props.private = isPrivate === true || isPrivate == 1 ? '1' : '0'
+        }
+        talk( 'POST', 'bins', props, callback )
+    },
     get:        function( bin, callback ) { talk( 'GET', 'bins/'+ bin, callback ) },
     requests:   function( bin, callback ) { talk( 'GET', 'bins/'+ bin +'/requests', callback ) },
     request:    function( bin, request, callback ) { talk( 'GET', 'bins/'+ bin +'/requests/'+ request, callback ) }
 }
 
-function talk( method, path, callback ) {
+function talk( method, path, props, callback ) {
+    if( typeof props === 'function' ) {
+        var callback = props
+        var props = {}
+    }
+    
     var options = {
         host:   'requestb.in',
         path:   '/api/v1/'+ path,
         method: method
+    }
+    
+    var query = null
+    
+    if( method == 'POST' && Object.keys( props ).length >= 1 ) {
+        var query = querystring.stringify( props )
+        options.headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Length': query.length
+        }
     }
     
     var req = http.request( options )
@@ -52,5 +76,5 @@ function talk( method, path, callback ) {
         callback( err )
     })
     
-    req.end()
+    req.end( query )
 }
