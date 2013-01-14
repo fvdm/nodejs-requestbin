@@ -54,10 +54,12 @@ function callback( err, data ) {
     Error: HTTP error           : a HTTP error like 404
     
 
-.create ( callback )
---------------------
+.create ( [isPrivate], callback )
+---------------------------------
 
 Create a new bin.
+
+* `isPrivate` - *optional* - *boolean* - Set to `true` to make this request bin private.
 
 ```js
 requestbin.create( console.log )
