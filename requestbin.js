@@ -25,17 +25,19 @@ function talk( method, path, props, callback ) {
     var options = {
         host:   'requestb.in',
         path:   '/api/v1/'+ path,
-        method: method
+        method: method,
+        headers: {
+            'User-Agent': 'requestbin.js (https://npmpjs.org/package/requestbin)',
+            Accept: 'application/json'
+        }
     }
     
     var query = null
     
     if( method == 'POST' && Object.keys( props ).length >= 1 ) {
         var query = querystring.stringify( props )
-        options.headers = {
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Content-Length': query.length
-        }
+        options.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+        options.headers['Content-Length'] = query.length
     }
     
     var req = http.request( options )
