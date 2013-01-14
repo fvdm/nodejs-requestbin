@@ -70,6 +70,9 @@ requestbin.create( console.log )
   request_count: 0 }
 ```
 
+The test URL is `http://requestb.in/NAME`
+The inspect URL is `http://requestb.in/NAME?inspect`
+
 
 .get ( binID, callback )
 --------------------------
