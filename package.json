@@ -1,29 +1,31 @@
 {
-    "author": {
-        "name":               "Franklin van de Meent",
-        "email":              "fr@nkl.in",
-        "url":                "http://frankl.in"
-    },
-    "name":                   "requestbin",
-    "description":            "API wrapper for RequestBin (http://requestb.in)",
-    "version":                "1.1.1",
-    "repository": {
-        "type":               "git",
-        "url":                "git://github.com/fvdm/nodejs-requestbin.git"
-    },
-    "bugs": {
-       "url":                 "https://github.com/fvdm/nodejs-requestbin/issues"
-    },
-    "main":                   "requestbin.js",
-    "dependencies":           {},
-    "devDependencies":        {},
-    "optionalDependencies":   {},
-    "engines": {
-       "node":                "*"
-    },
-    "keywords":               ["requestbin", "api", "http", "inspect"],
-    "license": {
-        "type":               "Public Domain",
-        "url":                "https://github.com/fvdm/nodejs-requestbin/raw/master/UNLICENSE"
-    }
+  "author": {
+    "name":               "Franklin van de Meent",
+    "email":              "fr@nkl.in",
+    "url":                "http://frankl.in"
+  },
+  "name":                 "requestbin",
+  "description":          "API wrapper for RequestBin (http://requestb.in)",
+  "version":              "1.1.1",
+  "repository": {
+    "type":               "git",
+    "url":                "git://github.com/fvdm/nodejs-requestbin.git"
+  },
+  "bugs": {
+     "url":               "https://github.com/fvdm/nodejs-requestbin/issues"
+  },
+  "main":                 "requestbin.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "engines": {
+     "node":              "*"
+  },
+  "keywords": [
+    "requestbin",
+    "api",
+    "http",
+    "inspect"
+  ],
+  "license":              "Unlicense"
 }
