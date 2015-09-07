@@ -1,5 +1,4 @@
-var http = require ('http');
-var querystring = require ('querystring');
+var httpreq = require ('httpreq');
 
 module.exports = {
   create: function (isPrivate, callback) {
@@ -33,10 +32,10 @@ function talk (method, path, props, callback) {
     var props = {};
   }
 
-  var options = {
-    host: 'requestb.in',
-    path: '/api/v1/'+ path,
+  var options: {
+    url: 'https://requestb.in/api/v1/' + path,
     method: method,
+    parameters: props,
     headers: {
       'User-Agent': 'requestbin.js (https://npmpjs.org/package/requestbin)',
       Accept: 'application/json'
@@ -45,57 +44,37 @@ function talk (method, path, props, callback) {
 
   var query = null;
 
-  if (method === 'POST' && Object.keys (props) .length >= 1) {
-    var query = querystring.stringify (props )
-    options.headers ['Content-Type'] = 'application/x-www-form-urlencoded'
-    options.headers ['Content-Length'] = query.length
-  }
+  httpreq.doRequest (options, function (err, res) {
+    var data = res && res.body || null;
+    var error = null;
 
-  var req = http.request (options);
+    if (err) {
+      callback (err);
+      return;
+    }
 
-  req.on ('response', function (res) {
-    var data = '';
+    if (res && res.statusCode >= 300) {
+      error = new Error ('HTTP error');
+      return;
+    }
 
-    res.on ('data', function (ch) {
-      data += ch;
-    });
+    try {
+      data = JSON.parse (data);
+    } catch (e) {
+      error = new Error ('invalid response');
+    }
 
-    res.on ('close', function () {
-      callback (new Error ('disconnected'));
-    });
+    if (error) {
+      error.httpCode = res.statusCode;
+      error.request = options;
+      error.response = {
+        headers: res.headers,
+        body: data
+      };
+      callback (error);
+      return;
+    }
 
-    res.on ('end', function () {
-      data = data.toString ('utf8') .trim ();
-      if (res.statusCode >= 300) {
-        var err = new Error ('HTTP error');
-        err.httpCode = res.statusCode;
-        err.request = options;
-        err.response = {
-          headers: res.headers,
-          body: data
-        };
-        callback (err);
-      } else if (!data.match (/^(\{.*\}|\[.*\])$/)) {
-        var err = new Error ('invalid response');
-        err.request = options;
-        err.response = {
-          headers: res.headers,
-          body: data
-        };
-        callback (err);
-      } else {
-        data = JSON.parse (data);
-        callback (null, data);
-      }
-    });
+    callback (null, data);
   });
-
-  req.on ('error', function (error) {
-    var err = new Error ('request failed');
-    err.details = error;
-    callback (err);
-  });
-
-  req.end (query);
-}
 }
