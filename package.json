@@ -18,11 +18,13 @@
     "test":               "node test.js"
   },
   "main":                 "requestbin.js",
-  "dependencies": {},
+  "dependencies": {
+    "httpreq":            "0.4.x"
+  },
   "devDependencies": {},
   "optionalDependencies": {},
   "engines": {
-     "node":              "*"
+     "node":              ">=0.8.0"
   },
   "keywords": [
     "requestbin",
