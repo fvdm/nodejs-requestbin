@@ -33,7 +33,7 @@ function talk (method, path, props, callback) {
   }
 
   var options = {
-    url: 'https://requestb.in/api/v1/' + path,
+    url: 'http://requestb.in/api/v1/' + path,
     method: method,
     parameters: props,
     headers: {
