@@ -84,6 +84,10 @@ function doTest (err, label, tests) {
 queue.push (function () {
   app.create (true, function (err, data) {
     cache.bin = data || null;
+    if (data) {
+      http.get ('http://requestb.in/' + data.name, function (r) {});
+      console.log ('info - http://requestb.in/' + data.name + '?inspect');
+    }
     doTest (err, '.create', [
       ['type', data instanceof Object],
       ['name', data && typeof data.name === 'string']
@@ -97,7 +101,6 @@ queue.push (function () {
     console.log ('skip - .get');
     return;
   }
-  http.get ('http://requestb.in/' + cache.bin.name, function (r) {});
   app.get (cache.bin.name, function (err, data) {
     doTest (err, '.get', [
       ['type', data instanceof Object],
