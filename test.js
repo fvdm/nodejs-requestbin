@@ -11,16 +11,18 @@ License:        Unlicense / Public Domain (see UNLICENSE file)
 var app = require ('./');
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
 var cache = {};
+var errors = 0;
+var queue = [];
+var next = 0;
 
 
 // handle exits
-var errors = 0;
 process.on ('exit', function () {
   if (errors === 0) {
     console.log ('\n\u001b[1mDONE, no errors.\u001b[0m\n');
     process.exit (0);
   } else {
-    console.log ('\n\u001b[1mFAIL, '+ errors +' error'+ (errors > 1 ? 's' : '') +' occurred!\u001b[0m\n');
+    console.log ('\n\u001b[1mFAIL, ' + errors + ' error' + (errors > 1 ? 's' : '') + ' occurred!\u001b[0m\n');
     process.exit (1);
   }
 });
@@ -35,9 +37,6 @@ process.on ('uncaughtException', function (err) {
 });
 
 // Queue to prevent flooding
-var queue = [];
-var next = 0;
-
 function doNext () {
   next++;
   if (queue [next]) {
@@ -49,26 +48,28 @@ function doNext () {
 //   ['feeds', typeof feeds === 'object']
 // ])
 function doTest (err, label, tests) {
+  var testErrors = [];
+  var i;
+
   if (err instanceof Error) {
-    console.error ('\u001b[1m\u001b[31mERROR\u001b[0m - '+ label +'\n');
+    console.error ('\u001b[1m\u001b[31mERROR\u001b[0m - ' + label + '\n');
     console.dir (err, { depth: null, colors: true });
     console.log ();
     console.error (err.stack);
     console.log ();
     errors++;
   } else {
-    var testErrors = [];
-    for (var i = 0; i < tests.length; i++) {
+    for (i = 0; i < tests.length; i++) {
       if (tests [i] [1] !== true) {
         testErrors.push (tests [i] [0]);
         errors++;
       }
     }
 
-    if(testErrors.length === 0) {
-      console.log ('\u001b[1m\u001b[32mgood\u001b[0m - '+ label);
+    if (testErrors.length === 0) {
+      console.log ('\u001b[1m\u001b[32mgood\u001b[0m - ' + label);
     } else {
-      console.error ('\u001b[1m\u001b[31mFAIL\u001b[0m - '+ label +' ('+ testErrors.join (', ') +')');
+      console.error ('\u001b[1m\u001b[31mFAIL\u001b[0m - ' + label + ' (' + testErrors.join (', ') + ')');
     }
   }
 
