@@ -1,35 +1,9 @@
 var httpreq = require ('httpreq');
 
-module.exports = {
-  create: function (isPrivate, callback) {
-    var props = {};
-
-    if (typeof isPrivate === 'function') {
-      var callback = isPrivate;
-    } else if (isPrivate === true) {
-      props.private = 'true';
-    }
-
-    talk ('POST', 'bins', props, callback);
-  },
-
-  get: function (bin, callback) {
-    talk ('GET', 'bins/'+ bin, callback);
-  },
-
-  requests: function (bin, callback) {
-    talk ('GET', 'bins/'+ bin +'/requests', callback);
-  },
-
-  request: function (bin, request, callback) {
-    talk ('GET', 'bins/'+ bin +'/requests/'+ request, callback);
-  }
-};
-
 function talk (method, path, props, callback) {
   if (typeof props === 'function') {
-    var callback = props;
-    var props = {};
+    callback = props;
+    props = {};
   }
 
   var options = {
@@ -41,8 +15,6 @@ function talk (method, path, props, callback) {
       Accept: 'application/json'
     }
   };
-
-  var query = null;
 
   httpreq.doRequest (options, function (err, res) {
     var data = res && res.body || null;
@@ -78,3 +50,29 @@ function talk (method, path, props, callback) {
     callback (null, data);
   });
 }
+
+module.exports = {
+  create: function (isPrivate, callback) {
+    var props = {};
+
+    if (typeof isPrivate === 'function') {
+      callback = isPrivate;
+    } else if (isPrivate === true) {
+      props.private = 'true';
+    }
+
+    talk ('POST', 'bins', props, callback);
+  },
+
+  get: function (bin, callback) {
+    talk ('GET', 'bins/' + bin, callback);
+  },
+
+  requests: function (bin, callback) {
+    talk ('GET', 'bins/' + bin +'/requests', callback);
+  },
+
+  request: function (bin, request, callback) {
+    talk ('GET', 'bins/' + bin +'/requests/' + request, callback);
+  }
+};
