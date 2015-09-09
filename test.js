@@ -9,6 +9,7 @@ License:        Unlicense / Public Domain (see UNLICENSE file)
 
 // Setup
 var app = require ('./');
+var http = require ('http');
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
 var cache = {
   bin: null,
@@ -96,6 +97,7 @@ queue.push (function () {
     console.log ('skip - .get');
     return;
   }
+  http.get ('http://requestb.in/' + cache.bin.name, function (r) {});
   app.get (cache.bin.name, function (err, data) {
     doTest (err, '.get', [
       ['type', data instanceof Object],
