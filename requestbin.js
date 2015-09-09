@@ -1,11 +1,6 @@
 var httpreq = require ('httpreq');
 
 function talk (method, path, props, callback) {
-  if (typeof props === 'function') {
-    callback = props;
-    props = {};
-  }
-
   var options = {
     url: 'http://requestb.in/api/v1/' + path,
     method: method,
@@ -15,6 +10,11 @@ function talk (method, path, props, callback) {
       Accept: 'application/json'
     }
   };
+
+  if (typeof props === 'function') {
+    callback = props;
+    props = {};
+  }
 
   httpreq.doRequest (options, function (err, res) {
     var data = res && res.body || null;
@@ -69,10 +69,10 @@ module.exports = {
   },
 
   requests: function (bin, callback) {
-    talk ('GET', 'bins/' + bin +'/requests', callback);
+    talk ('GET', 'bins/' + bin + '/requests', callback);
   },
 
   request: function (bin, request, callback) {
-    talk ('GET', 'bins/' + bin +'/requests/' + request, callback);
+    talk ('GET', 'bins/' + bin + '/requests/' + request, callback);
   }
 };
