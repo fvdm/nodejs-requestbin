@@ -82,7 +82,7 @@ function doTest (err, label, tests) {
 
 
 queue.push (function () {
-  app.create (true, function (err, data) {
+  app.create (false, function (err, data) {
     cache.bin = data || null;
     if (data) {
       http.get ('http://requestb.in/' + data.name, function (r) {});
