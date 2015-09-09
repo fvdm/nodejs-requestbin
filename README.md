@@ -3,6 +3,8 @@ nodejs-requestbin
 
 API wrapper for [RequestBin](http://requestb.in/)
 
+[![Build Status](https://travis-ci.org/fvdm/nodejs-requestbin.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-requestbin)
+
 
 Installation
 ------------
