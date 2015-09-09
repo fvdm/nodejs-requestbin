@@ -119,7 +119,6 @@ queue.push (function () {
     cache.request = data && data [0] || null;
     doTest (err, '.requests', [
       ['type', data instanceof Array],
-      ['size', data && data.length],
       ['item', data && data [0] instanceof Object]
     ]);
   });
