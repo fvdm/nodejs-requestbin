@@ -10,7 +10,10 @@ License:        Unlicense / Public Domain (see UNLICENSE file)
 // Setup
 var app = require ('./');
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
-var cache = {};
+var cache = {
+  bin: null,
+  request: null
+};
 var errors = 0;
 var queue = [];
 var next = 0;
@@ -79,7 +82,7 @@ function doTest (err, label, tests) {
 
 queue.push (function () {
   app.create (true, function (err, data) {
-    cache = data;
+    cache.bin = data || null;
     doTest (err, '.create', [
       ['type', data instanceof Object],
       ['name', data && typeof data.name === 'string']
@@ -89,10 +92,44 @@ queue.push (function () {
 
 
 queue.push (function () {
-  app.get (cache.name, function (err, data) {
+  if (!cache.bin) {
+    console.log ('skip - .get');
+    return;
+  }
+  app.get (cache.bin.name, function (err, data) {
     doTest (err, '.get', [
       ['type', data instanceof Object],
-      ['name', data && data.name === cache.name]
+      ['name', data && data.name === cache.bin.name]
+    ]);
+  });
+});
+
+
+queue.push (function () {
+  if (!cache.bin) {
+    console.log ('skip - .requests');
+    return;
+  }
+  app.requests (cache.bin.name, function (err, data) {
+    cache.request = data && data [0] || null;
+    doTest (err, '.requests', [
+      ['type', data instanceof Array],
+      ['size', data && data.length],
+      ['item', data && data [0] instanceof Object]
+    ]);
+  });
+});
+
+
+queue.push (function () {
+  if (!cache.request) {
+    console.log ('skip - .request');
+    return;
+  }
+  app.request (cache.bin.name, cache.request.id, function (err, data) {
+    doTest (err, '.request', [
+      ['type', data instanceof Object],
+      ['id', data && data.id === cache.request.id]
     ]);
   });
 });
