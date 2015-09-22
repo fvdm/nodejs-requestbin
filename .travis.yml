@@ -2,9 +2,8 @@ sudo: false
 language: node_js
 before_install: nvm use stable && npm install eslint -g && eslint .
 node_js:
-- 'iojs-3'
-- 'iojs-2'
-- 'iojs-1'
+- '4.1'
 - '0.12'
 - '0.10'
 - '0.8'
+- 'iojs-3'
