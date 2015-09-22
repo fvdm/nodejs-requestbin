@@ -90,7 +90,7 @@ queue.push (function () {
   app.create (false, function (err, data) {
     cache.bin = data || null;
     if (data) {
-      http.post ('http://requestb.in/' + data.name, {parameters: cache.post}, function (e,r) {});
+      http.post ('http://requestb.in/' + data.name, { parameters: cache.post }, function (e, r) {});
       console.log ('info - http://requestb.in/' + data.name + '?inspect');
     }
     doTest (err, '.create', [
