@@ -1,70 +1,74 @@
-nodejs-requestbin
-=================
+requestbin
+==========
 
-API wrapper for [RequestBin](http://requestb.in/)
+[RequestBin](http://requestb.in/) API methods for Node.js
 
 [![Build Status](https://travis-ci.org/fvdm/nodejs-requestbin.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-requestbin)
-
-
-Installation
-------------
-
-With NPM for the latest *stable* release:
-
-    npm install requestbin
-
-Or from Github for the *most recent* code, but may be unstable:
-
-    git clone https://github.com/fvdm/nodejs-requestbin
-    npm install ./nodejs-requestbin
 
 
 Usage
 -----
 
-This module has only four methods and each of them requires a callback function as last parameter to receive the results. The API response is JSON parsed to an object or array.
-
 ```js
-var requestbin = require('requestbin')
-requestbin.create( callbackFunction )
+var requestbin = require ('requestbin');
+
+requestbin.create (false, function (err, data) {
+  if (err) { return console.log (err); }
+
+  console.log ('Send requests to: http://requestb.in/' + data.name);
+  console.log ('Inspect requests: http://requestb.in/' + data.name + '?inspect');
+});
 ```
+
+
+Installation
+------------
+
+`npm install requestbin`
 
 
 Callback & errors
 -----------------
 
-The callback receives only one parameter `err` in case of an error. This will be an `instanceof Error` with stack trace and sometimes more properties to describe the error.
+The callback receives only one parameter `err` in case of an error.
+This will be an`instanceof Error` with stack trace and sometimes more properties to describe the error.
 
 When everything seems fine the `err` param is `null` and a second param `data` contains the result.
 
 ```js
-function callback( err, data ) {
-    if( !err ) {
-        console.log( data )
-    } else {
-        console.log( err )          // message + info properties, ie. details
-        console.log( err.stack )    // what caused it
-    }
+function callback (err, data) {
+  if (!err) {
+    console.log (data);
+  } else {
+    console.log (err);          // message + info properties, ie. details
+    console.log (err.stack);    // what caused it
+  }
 }
 ```
 
 #### Errors
 
-    Error: disconnected         : connection closed too early
-    Error: request failed       : request can't be made
-    Error: invalid response     : API did not return JSON
-    Error: HTTP error           : a HTTP error like 404
-    
+message          | description
+:----------------|:----------------------------
+disconnected     | Connection closed too early
+request failed   | Request can't be made
+invalid response | API did not return JSON data
+HTTP error       | HTTP error like `404`
+
 
 .create ( [isPrivate], callback )
 ---------------------------------
 
 Create a new bin.
 
-* `isPrivate` - *optional* - *boolean* - Set to `true` to make this request bin private.
+param     | type     | required | default | description
+:---------|:---------|:---------|:--------|:-----------------
+isPrivate | boolean  | no       | `true`  | Set to `true` to make this request bin private.
+callback  | function | yes      |         | Callback function
 
 ```js
-requestbin.create( console.log )
+// make it public
+requestbin.create (false, console.log);
 ```
 
 ```js
@@ -78,13 +82,18 @@ The test URL is `http://requestb.in/NAME`
 The inspect URL is `http://requestb.in/NAME?inspect`
 
 
-.get ( binID, callback )
---------------------------
+.get ( binName, callback )
+------------------------
 
-Get a bin by its name/id.
+Get details about a bin.
+
+param    | type     | required | default | description
+:--------|:---------|:---------|:--------|:-----------------------
+binName  | string   | yes      |         | Bin name/ID to retrieve
+callback | function | yes      |         | Callback function
 
 ```js
-requestbin.get( 'oiwxgloi', console.log )
+requestbin.get ('oiwxgloi', console.log);
 ```
 
 ```js
@@ -95,11 +104,18 @@ requestbin.get( 'oiwxgloi', console.log )
 ```
 
 
-.requests ( binID, callback )
+.requests ( binName, callback )
 -----------------------------
 
+Get a list of the requests made to a bin.
+
+param    | type     | required | default | description
+:--------|:---------|:---------|:--------|:-----------------------
+binName  | string   | yes      |         | Bin name/ID to retrieve
+callback | function | yes      |         | Callback function
+
 ```js
-requestbin.requests( 'oiwxgloi', console.log )
+requestbin.requests ('oiwxgloi', console.log);
 ```
 
 ```js
@@ -121,14 +137,22 @@ requestbin.requests( 'oiwxgloi', console.log )
 ```
 
 
-.request ( binID, requestID, callback )
+.request ( binName, requestId, callback )
 ---------------------------------------
 
+Get details about one request made to a bin.
+
+param     | type     | required | default | description
+:---------|:---------|:---------|:--------|:-----------------------
+binName   | string   | yes      |         | Bin name/ID to retrieve
+requestId | string   | yes      |         | Request ID to retrieve
+callback  | function | yes      |         | Callback function
+
 ```js
-requestbin.request( 'oiwxgloi', 'sz42lo', console.log )
+requestbin.request ('oiwxgloi', 'sz42lo', console.log);
 ```
 
-The output is much like the previous example, but it's an object instead of array.
+_The output is much like the previous example, but it's an object instead of array._
 
 
 Unlicense
@@ -159,3 +183,10 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 For more information, please refer to <http://unlicense.org>
 
+
+Author
+------
+
+Franklin van de Meent
+| [Website](https://frankl.in)
+| [Github](https://github.com/fvdm)
