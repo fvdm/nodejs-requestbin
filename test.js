@@ -9,11 +9,16 @@ License:        Unlicense / Public Domain (see UNLICENSE file)
 
 // Setup
 var app = require ('./');
-var http = require ('http');
+var pkg = require ('./package.json');
+var http = require ('httpreq');
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
 var cache = {
   bin: null,
-  request: null
+  request: null,
+  post: {
+    node: process.version,
+    module: pkg.version
+  }
 };
 var errors = 0;
 var queue = [];
@@ -85,7 +90,7 @@ queue.push (function () {
   app.create (false, function (err, data) {
     cache.bin = data || null;
     if (data) {
-      http.get ('http://requestb.in/' + data.name, function (r) {});
+      http.post ('http://requestb.in/' + data.name, {parameters: cache.post}, function (e,r) {});
       console.log ('info - http://requestb.in/' + data.name + '?inspect');
     }
     doTest (err, '.create', [
