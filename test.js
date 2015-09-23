@@ -87,6 +87,17 @@ function doTest (err, label, tests) {
 
 
 queue.push (function () {
+  app.create ('invalid', function (err) {
+    doTest (null, 'Error: request failed', [
+      ['type', err instanceof Error],
+      ['message', err && err.message === 'request failed'],
+      ['error', err && err.error]
+    ]);
+  });
+});
+
+
+queue.push (function () {
   app.create (false, function (err, data) {
     cache.bin = data || null;
     if (data) {
