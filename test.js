@@ -24,6 +24,8 @@ var errors = 0;
 var queue = [];
 var next = 0;
 
+app.config ('timeout', timeout);
+
 
 // handle exits
 process.on ('exit', function () {
@@ -87,6 +89,7 @@ function doTest (err, label, tests) {
 
 
 queue.push (function () {
+  app.config ('timeout', 1);
   app.create ('invalid', function (err) {
     doTest (null, 'Error: request failed', [
       ['type', err instanceof Error],
@@ -98,6 +101,7 @@ queue.push (function () {
 
 
 queue.push (function () {
+  app.config ('timeout', timeout);
   app.create (false, function (err, data) {
     cache.bin = data || null;
     if (data) {
