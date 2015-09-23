@@ -1,6 +1,6 @@
 sudo: false
 language: node_js
-before_install: nvm use stable && npm install eslint -g && eslint .
+before_install: nvm install 4.1 && npm install eslint -g && eslint .
 node_js:
 - '4.1'
 - '0.12'
