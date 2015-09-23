@@ -21,7 +21,9 @@ function talk (method, path, props, callback) {
     var error = null;
 
     if (err) {
-      callback (err);
+      error = new Error ('request failed');
+      error.error = err;
+      callback (error);
       return;
     }
 
