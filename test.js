@@ -106,7 +106,7 @@ queue.push (function () {
     cache.bin = data || null;
     if (data) {
       http.post ('http://requestb.in/' + data.name, { parameters: cache.post }, function (e, r) {});
-      console.log ('info - http://requestb.in/' + data.name + '?inspect');
+      console.log ('\u001b[33minfo\u001b[0m - http://requestb.in/' + data.name + '?inspect');
     }
     doTest (err, '.create', [
       ['type', data instanceof Object],
