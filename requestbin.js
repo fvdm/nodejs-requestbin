@@ -1,10 +1,14 @@
 var httpreq = require ('httpreq');
+var config = {
+  timeout: 5000
+};
 
 function talk (method, path, props, callback) {
   var options = {
     url: 'http://requestb.in/api/v1/' + path,
     method: method,
     parameters: props,
+    timeout: config.timeout || 5000,
     headers: {
       'User-Agent': 'requestbin.js (https://www.npmpjs.com/package/requestbin)',
       Accept: 'application/json'
@@ -54,6 +58,10 @@ function talk (method, path, props, callback) {
 }
 
 module.exports = {
+  config: function (name, val) {
+    config [name] = val;
+  },
+
   create: function (isPrivate, callback) {
     var props = {};
 
