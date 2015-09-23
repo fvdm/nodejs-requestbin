@@ -94,7 +94,7 @@ queue.push (function () {
     doTest (null, 'Error: request failed', [
       ['type', err instanceof Error],
       ['message', err && err.message === 'request failed'],
-      ['error', err && err.error]
+      ['error', err && err.error instanceof Error]
     ]);
   });
 });
