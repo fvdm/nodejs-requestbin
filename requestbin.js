@@ -6,7 +6,7 @@ function talk (method, path, props, callback) {
     method: method,
     parameters: props,
     headers: {
-      'User-Agent': 'requestbin.js (https://npmpjs.org/package/requestbin)',
+      'User-Agent': 'requestbin.js (https://www.npmpjs.com/package/requestbin)',
       Accept: 'application/json'
     }
   };
