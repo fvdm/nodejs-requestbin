@@ -166,4 +166,8 @@ queue.push (function () {
 
 
 console.log ('Running tests...');
+console.log ('Node.js version: ' + process.versions.node);
+console.log ('Module version:  ' + pkg.version);
+console.log ();
+
 queue [0] ();
