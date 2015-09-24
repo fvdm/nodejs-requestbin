@@ -8,7 +8,7 @@ function talk (method, path, props, callback) {
     url: 'http://requestb.in/api/v1/' + path,
     method: method,
     parameters: props,
-    timeout: config.timeout || 5000,
+    timeout: parseInt (config.timeout, 10) || 5000,
     headers: {
       'User-Agent': 'requestbin.js (https://www.npmpjs.com/package/requestbin)',
       Accept: 'application/json'
