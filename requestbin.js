@@ -60,8 +60,11 @@ function talk (method, path, props, callback) {
 }
 
 module.exports = {
-  config: function (name, val) {
-    config [name] = val;
+  config: function (props) {
+    var name;
+    for (name in props) {
+      config [name] = props [name];
+    }
   },
 
   create: function (isPrivate, callback) {
