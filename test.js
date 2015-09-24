@@ -11,6 +11,7 @@ License:        Unlicense / Public Domain (see UNLICENSE file)
 var app = require ('./');
 var pkg = require ('./package.json');
 var http = require ('httpreq');
+
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
 var iface = process.env.REQUESTBIN_INTERFACE || null;
 
@@ -18,7 +19,7 @@ var cache = {
   bin: null,
   request: null,
   post: {
-    node: process.version,
+    nodejs: process.versions.node,
     module: pkg.version
   }
 };
