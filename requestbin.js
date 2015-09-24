@@ -62,6 +62,7 @@ function talk (method, path, props, callback) {
 module.exports = {
   config: function (props) {
     var name;
+
     for (name in props) {
       config [name] = props [name];
     }

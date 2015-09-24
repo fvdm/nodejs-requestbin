@@ -111,7 +111,7 @@ queue.push (function () {
   app.create (false, function (err, data) {
     cache.bin = data || null;
     if (data) {
-      http.post ('http://requestb.in/' + data.name, { parameters: cache.post }, function (e, r) {});
+      http.post ('http://requestb.in/' + data.name, { parameters: cache.post }, function () {});
       console.log ('\u001b[33minfo\u001b[0m - http://requestb.in/' + data.name + '?inspect');
     }
     doTest (err, '.create', [
