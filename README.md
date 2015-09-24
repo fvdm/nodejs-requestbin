@@ -56,6 +56,23 @@ invalid response | API did not return JSON data
 HTTP error       | HTTP error like `404`
 
 
+.config ( object )
+------------------
+
+Set configuration options.
+
+name    | type    | default | description
+:-------|:--------|:--------|:-------------------------
+timeout | integer | 5000    | Request time out in ms
+iface   | string  |         | Outbound interface to use
+
+```js
+requestbin.config ({
+  iface: '1.2.3.4'
+});
+```
+
+
 .create ( [isPrivate], callback )
 ---------------------------------
 
