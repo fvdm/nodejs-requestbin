@@ -50,7 +50,6 @@ function callback (err, data) {
 
 message          | description
 :----------------|:----------------------------
-disconnected     | Connection closed too early
 request failed   | Request can't be made
 invalid response | API did not return JSON data
 HTTP error       | HTTP error like `404`
