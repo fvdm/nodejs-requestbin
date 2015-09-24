@@ -1,6 +1,7 @@
 var httpreq = require ('httpreq');
 var config = {
-  timeout: 5000
+  timeout: 5000,
+  iface: null
 };
 
 function talk (method, path, props, callback) {
@@ -9,6 +10,7 @@ function talk (method, path, props, callback) {
     method: method,
     parameters: props,
     timeout: parseInt (config.timeout, 10) || 5000,
+    localAddress: config.iface,
     headers: {
       'User-Agent': 'requestbin.js (https://www.npmpjs.com/package/requestbin)',
       Accept: 'application/json'
