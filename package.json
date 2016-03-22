@@ -6,13 +6,13 @@
   },
   "name": "requestbin",
   "description": "RequestBin API access (http://requestb.in)",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/fvdm/nodejs-requestbin.git"
   },
   "bugs": {
-     "url": "https://github.com/fvdm/nodejs-requestbin/issues"
+    "url": "https://github.com/fvdm/nodejs-requestbin/issues"
   },
   "scripts": {
     "test": "eslint . && node test.js"
@@ -27,7 +27,7 @@
   },
   "optionalDependencies": {},
   "engines": {
-     "node": ">=0.12.0"
+    "node": ">=0.12.0"
   },
   "keywords": [
     "requestbin",
