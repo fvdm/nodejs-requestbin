@@ -7,11 +7,12 @@ License:        Unlicense / Public Domain (see UNLICENSE file)
                 (https://github.com/fvdm/nodejs-requestbin/raw/develop/UNLICENSE)
 */
 
-// Setup
-var app = require ('./');
-var pkg = require ('./package.json');
 var http = require ('httpreq');
+var dotest = require ('dotest');
+var app = require ('./');
 
+
+// Setup
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
 var iface = process.env.REQUESTBIN_INTERFACE || null;
 
@@ -19,13 +20,9 @@ var cache = {
   bin: null,
   request: null,
   post: {
-    nodejs: process.versions.node,
-    module: pkg.version
+    nodejs: process.versions.node
   }
 };
-var errors = 0;
-var queue = [];
-var next = 0;
 
 app.config ({
   timeout: timeout,
@@ -33,141 +30,81 @@ app.config ({
 });
 
 
-// handle exits
-process.on ('exit', function () {
-  if (errors === 0) {
-    console.log ('\n\u001b[1mDONE, no errors.\u001b[0m\n');
-    process.exit (0);
-  } else {
-    console.log ('\n\u001b[1mFAIL, ' + errors + ' error' + (errors > 1 ? 's' : '') + ' occurred!\u001b[0m\n');
-    process.exit (1);
-  }
-});
-
-// prevent errors from killing the process
-process.on ('uncaughtException', function (err) {
-  console.log ();
-  console.error (err.stack);
-  console.trace ();
-  console.log ();
-  errors++;
-});
-
-// Queue to prevent flooding
-function doNext () {
-  next++;
-  if (queue [next]) {
-    queue [next] ();
-  }
-}
-
-// doTest( passErr, 'methods', [
-//   ['feeds', typeof feeds === 'object']
-// ])
-function doTest (err, label, tests) {
-  var testErrors = [];
-  var i;
-
-  if (err instanceof Error) {
-    console.error ('\u001b[1m\u001b[31mERROR\u001b[0m - ' + label + '\n');
-    console.dir (err, { depth: null, colors: true });
-    console.log ();
-    console.error (err.stack);
-    console.log ();
-    errors++;
-  } else {
-    for (i = 0; i < tests.length; i++) {
-      if (tests [i] [1] !== true) {
-        testErrors.push (tests [i] [0]);
-        errors++;
-      }
-    }
-
-    if (testErrors.length === 0) {
-      console.log ('\u001b[1m\u001b[32mgood\u001b[0m - ' + label);
-    } else {
-      console.error ('\u001b[1m\u001b[31mFAIL\u001b[0m - ' + label + ' (' + testErrors.join (', ') + ')');
-    }
-  }
-
-  doNext ();
-}
-
-
-queue.push (function () {
+dotest.add ('Error: request failed', function () {
   app.config ({ timeout: 1 });
   app.create ('invalid', function (err) {
-    doTest (null, 'Error: request failed', [
-      ['type', err instanceof Error],
-      ['message', err && err.message === 'request failed'],
-      ['error', err && err.error instanceof Error]
-    ]);
+    dotest.test ()
+      .isError ('fail', 'err', err)
+      .isExactly ('fail', 'err.message', err && err.message, 'request failed')
+      .isError ('fail', 'err.error', err && err.error)
+      .done ();
   });
 });
 
 
-queue.push (function () {
+dotest.add ('.create', function () {
   app.config ({ timeout: timeout });
   app.create (false, function (err, data) {
     cache.bin = data || null;
+
     if (data) {
       http.post ('http://requestb.in/' + data.name, { parameters: cache.post }, function () {});
-      console.log ('\u001b[33minfo\u001b[0m - http://requestb.in/' + data.name + '?inspect');
+      dotest.log ('info', 'http://requestb.in/' + data.name + '?inspect');
     }
-    doTest (err, '.create', [
-      ['type', data instanceof Object],
-      ['name', data && typeof data.name === 'string']
-    ]);
+
+    dotest.test (err)
+      .isObject ('fail', 'data', data)
+      .isString ('fail', 'data.name', data && data.name)
+      .done ();
   });
 });
 
 
-queue.push (function () {
+dotest.add ('.get', function () {
   if (!cache.bin) {
     console.log ('skip - .get');
     return;
   }
+
   app.get (cache.bin.name, function (err, data) {
-    doTest (err, '.get', [
-      ['type', data instanceof Object],
-      ['name', data && data.name === cache.bin.name]
-    ]);
+    dotest.test (err)
+      .isObject ('fail', 'data', data)
+      .isExactly ('fail', 'data.name', data && data.name, cache.bin.name)
+      .done ();
   });
 });
 
 
-queue.push (function () {
+dotest.add ('.requests', function () {
   if (!cache.bin) {
     console.log ('skip - .requests');
     return;
   }
+
   app.requests (cache.bin.name, function (err, data) {
     cache.request = data && data [0] || null;
-    doTest (err, '.requests', [
-      ['type', data instanceof Array],
-      ['item', data && data [0] instanceof Object]
-    ]);
+    dotest.test (err)
+      .isArray ('fail', 'data', data)
+      .isNotEmpty ('fail', 'data', data)
+      .isObject ('fail', 'data[0]', data && data [0])
+      .done ();
   });
 });
 
 
-queue.push (function () {
+dotest.add ('.request', function () {
   if (!cache.request) {
     console.log ('skip - .request');
     return;
   }
+
   app.request (cache.bin.name, cache.request.id, function (err, data) {
-    doTest (err, '.request', [
-      ['type', data instanceof Object],
-      ['id', data && data.id === cache.request.id]
-    ]);
+    dotest.test (err)
+      .isObject ('fail', 'data', data)
+      .isExactly ('fail', 'data.id', data && data.id, cache.request.id)
+      .done ();
   });
 });
 
 
-console.log ('Running tests...');
-console.log ('Node.js version: ' + process.versions.node);
-console.log ('Module version:  ' + pkg.version);
-console.log ();
-
-queue [0] ();
+dotest.run ();
