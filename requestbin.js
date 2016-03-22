@@ -12,8 +12,8 @@ function talk (method, path, props, callback) {
     timeout: parseInt (config.timeout, 10) || 5000,
     localAddress: config.iface,
     headers: {
-      'User-Agent': 'requestbin.js (https://www.npmpjs.com/package/requestbin)',
-      Accept: 'application/json'
+      'Accept': 'application/json',
+      'User-Agent': 'requestbin.js (https://github.com/fvdm/nodejs-requestbin)'
     }
   };
 
