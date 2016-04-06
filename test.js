@@ -54,7 +54,7 @@ dotest.add ('.create', function () {
 
     dotest.test (err)
       .isObject ('fail', 'data', data)
-      .isString ('fail', 'data.name', data && data.name)
+      .isString ('warn', 'data.name', data && data.name)
       .done ();
   });
 });
@@ -69,7 +69,7 @@ dotest.add ('.get', function () {
   app.get (cache.bin.name, function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
-      .isExactly ('fail', 'data.name', data && data.name, cache.bin.name)
+      .isExactly ('warn', 'data.name', data && data.name, cache.bin.name)
       .done ();
   });
 });
@@ -85,8 +85,8 @@ dotest.add ('.requests', function () {
     cache.request = data && data [0] || null;
     dotest.test (err)
       .isArray ('fail', 'data', data)
-      .isNotEmpty ('fail', 'data', data)
-      .isObject ('fail', 'data[0]', data && data [0])
+      .isNotEmpty ('warn', 'data', data)
+      .isObject ('warn', 'data[0]', data && data [0])
       .done ();
   });
 });
@@ -101,7 +101,7 @@ dotest.add ('.request', function () {
   app.request (cache.bin.name, cache.request.id, function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
-      .isExactly ('fail', 'data.id', data && data.id, cache.request.id)
+      .isExactly ('warn', 'data.id', data && data.id, cache.request.id)
       .done ();
   });
 });
