@@ -107,4 +107,4 @@ dotest.add ('.request', function () {
 });
 
 
-dotest.run ();
+dotest.run (1000);
