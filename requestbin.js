@@ -9,7 +9,7 @@ function talk (method, path, props, callback) {
     url: 'http://requestb.in/api/v1/' + path,
     method: method,
     parameters: props,
-    timeout: parseInt (config.timeout, 10) || 5000,
+    timeout: config.timeout || 5000,
     localAddress: config.iface,
     headers: {
       'Accept': 'application/json',
