@@ -15,7 +15,7 @@
     "url": "https://github.com/fvdm/nodejs-requestbin/issues"
   },
   "scripts": {
-    "test": "eslint . && node test.js"
+    "test": "st=0; eslint . || st=1; node test.js || st=1; exit $st"
   },
   "main": "requestbin.js",
   "dependencies": {
