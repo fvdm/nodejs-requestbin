@@ -5,6 +5,7 @@ requestbin
 
 [![npm](https://img.shields.io/npm/v/requestbin.svg?maxAge=3600)](https://github.com/fvdm/nodejs-requestbin/blob/master/CHANGELOG.md)
 [![Build Status](https://travis-ci.org/fvdm/nodejs-requestbin.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-requestbin)
+[![Dependency Status](https://gemnasium.com/badges/github.com/fvdm/nodejs-bolcom.svg)](https://gemnasium.com/github.com/fvdm/nodejs-bolcom#runtime-dependencies)
 
 
 Usage
