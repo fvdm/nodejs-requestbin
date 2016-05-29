@@ -3,6 +3,7 @@ requestbin
 
 [RequestBin](http://requestb.in/) API methods for Node.js
 
+[![npm](https://img.shields.io/npm/v/requestbin.svg?maxAge=3600)](https://github.com/fvdm/nodejs-requestbin/blob/master/CHANGELOG.md)
 [![Build Status](https://travis-ci.org/fvdm/nodejs-requestbin.svg?branch=master)](https://travis-ci.org/fvdm/nodejs-requestbin)
 
 
