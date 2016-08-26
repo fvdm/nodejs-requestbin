@@ -19,7 +19,7 @@
   },
   "main": "requestbin.js",
   "dependencies": {
-    "httpreq": "^0.4.16"
+    "httpreq": "^0.4.22"
   },
   "devDependencies": {
     "dotest": "^1.5.0",
