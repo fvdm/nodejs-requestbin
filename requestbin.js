@@ -18,6 +18,57 @@ var config = {
 
 
 /**
+ * Process response
+ *
+ * argument order is to prevent callback
+ * handler detection in code parsers
+ *
+ * @callback callback
+ * @param res {object} - httpreq response
+ * @param err {Error|null} - httpreq error
+ * @param callback {function} - `function (err, data) {}`
+ * @return {void}
+ */
+
+function processResponse (res, err, callback) {
+  var data = res && res.body || null;
+  var error = null;
+
+  if (err) {
+    error = new Error ('request failed');
+    error.error = err;
+    callback (error);
+    return;
+  }
+
+  if (res && res.statusCode >= 300) {
+    error = new Error ('HTTP error');
+    return;
+  }
+
+  try {
+    data = JSON.parse (data);
+  } catch (e) {
+    error = new Error ('invalid response');
+  }
+
+  if (error) {
+    error.httpCode = res.statusCode;
+    error.request = options;
+    error.response = {
+      headers: res.headers,
+      body: data
+    };
+
+    callback (error);
+    return;
+  }
+
+  callback (null, data);
+}
+
+
+/**
  * Communicate with API
  *
  * @callback callback
@@ -47,39 +98,7 @@ function talk (method, path, props, callback) {
   }
 
   httpreq.doRequest (options, function (err, res) {
-    var data = res && res.body || null;
-    var error = null;
-
-    if (err) {
-      error = new Error ('request failed');
-      error.error = err;
-      callback (error);
-      return;
-    }
-
-    if (res && res.statusCode >= 300) {
-      error = new Error ('HTTP error');
-      return;
-    }
-
-    try {
-      data = JSON.parse (data);
-    } catch (e) {
-      error = new Error ('invalid response');
-    }
-
-    if (error) {
-      error.httpCode = res.statusCode;
-      error.request = options;
-      error.response = {
-        headers: res.headers,
-        body: data
-      };
-      callback (error);
-      return;
-    }
-
-    callback (null, data);
+    processResponse (res, err, callback);
   });
 }
 
