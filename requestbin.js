@@ -1,19 +1,21 @@
 var httpreq = require ('httpreq');
 var config = {
   timeout: 5000,
-  iface: null
+  iface: null,
+  baseURL: null,
+  userAgent: null
 };
 
 function talk (method, path, props, callback) {
   var options = {
-    url: 'http://requestb.in/api/v1/' + path,
+    url: (config.baseURL || 'http://requestb.in/api/v1/') + path,
     method: method,
     parameters: props,
     timeout: config.timeout || 5000,
     localAddress: config.iface,
     headers: {
       'Accept': 'application/json',
-      'User-Agent': 'requestbin.js (https://github.com/fvdm/nodejs-requestbin)'
+      'User-Agent': (config.userAgent || 'requestbin.js (https://github.com/fvdm/nodejs-requestbin)')
     }
   };
 
