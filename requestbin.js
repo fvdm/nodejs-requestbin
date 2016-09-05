@@ -128,7 +128,7 @@ function methodConfig (props) {
  * @return {void}
  */
 
-function methodCreate (isPrivate, callback) (
+function methodCreate (isPrivate, callback) {
   var props = {};
 
   if (typeof isPrivate === 'function') {
