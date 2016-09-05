@@ -110,7 +110,7 @@ function talk (method, path, props, callback) {
  * @return {void}
  */
 
-function methodConfig (props) (
+function methodConfig (props) {
   var name;
 
   for (name in props) {
