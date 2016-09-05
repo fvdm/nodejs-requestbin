@@ -18,6 +18,7 @@
     "test": "dotest"
   },
   "main": "requestbin.js",
+  "tonicExampleFilename": "example.js",
   "dependencies": {
     "httpreq": "^0.4.22"
   },
