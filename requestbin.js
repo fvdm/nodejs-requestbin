@@ -84,36 +84,97 @@ function talk (method, path, props, callback) {
 }
 
 
-module.exports = {
-  config: function (props) {
-    var name;
+/**
+ * Set configuration
+ *
+ * @param props {object} - Config parameters
+ * @return {void}
+ */
 
-    for (name in props) {
-      config [name] = props [name];
-    }
-  },
+function methodConfig (props) (
+  var name;
 
-  create: function (isPrivate, callback) {
-    var props = {};
-
-    if (typeof isPrivate === 'function') {
-      callback = isPrivate;
-    } else if (isPrivate === true) {
-      props.private = 'true';
-    }
-
-    talk ('POST', 'bins', props, callback);
-  },
-
-  get: function (bin, callback) {
-    talk ('GET', 'bins/' + bin, callback);
-  },
-
-  requests: function (bin, callback) {
-    talk ('GET', 'bins/' + bin + '/requests', callback);
-  },
-
-  request: function (bin, request, callback) {
-    talk ('GET', 'bins/' + bin + '/requests/' + request, callback);
+  for (name in props) {
+    config [name] = props [name];
   }
+}
+
+
+/**
+ * Create request instance
+ *
+ * @callback callback
+ * @param [isPrivate = false] {boolean} - Make instance private
+ * @param callback {function} - `function (err, data) {}`
+ * @return {void}
+ */
+
+function methodCreate (isPrivate, callback) (
+  var props = {};
+
+  if (typeof isPrivate === 'function') {
+    callback = isPrivate;
+  } else if (isPrivate === true) {
+    props.private = 'true';
+  }
+
+  talk ('POST', 'bins', props, callback);
+}
+
+
+/**
+ * Get a request instance
+ *
+ * @callback callback
+ * @param bin {string} - Bin instance ID
+ * @param callback {function} - `function (err, data) {}`
+ * @return {void}
+ */
+
+function methodGet (bin, callback) {
+  talk ('GET', 'bins/' + bin, callback);
+}
+
+
+/**
+ * Get received requests
+ *
+ * @callback callback
+ * @param bin {string} - Bin instance ID
+ * @param callback {function} - `function (err, data) {}`
+ * @return {void}
+ */
+
+function methodRequests (bin, callback) {
+  talk ('GET', 'bins/' + bin + '/requests', callback);
+}
+
+
+/**
+ * Get one received request
+ *
+ * @callback callback
+ * @param bin {string} - Bin instance ID
+ * @param request {string} - Request ID
+ * @param callback {function} - `function (err, data) {}`
+ * @return {void}
+ */
+
+function methodRequest (bin, request, callback) {
+  talk ('GET', 'bins/' + bin + '/requests/' + request, callback);
+}
+
+
+/**
+ * Interface methods
+ *
+ * @return {object} - Methods
+ */
+
+module.exports = {
+  config: methodConfig,
+  create: methodCreate,
+  get: methodGet,
+  requests: methodRequests,
+  request: methodRequest
 };
