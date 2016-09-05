@@ -15,6 +15,8 @@ var app = require ('./');
 // Setup
 var timeout = process.env.REQUESTBIN_TIMEOUT || 5000;
 var iface = process.env.REQUESTBIN_INTERFACE || null;
+var baseURL = process.env.REQUESTBIN_BASE_URL || null;
+var userAgent = process.env.REQUESTBIN_USER_AGENT || null;
 
 var cache = {
   bin: null,
@@ -26,7 +28,9 @@ var cache = {
 
 app.config ({
   timeout: timeout,
-  iface: iface
+  iface: iface,
+  baseURL: baseURL,
+  userAgent: userAgent
 });
 
 

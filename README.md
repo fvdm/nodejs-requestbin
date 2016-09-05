@@ -62,10 +62,12 @@ HTTP error       | HTTP error like `404`
 
 Set configuration options.
 
-name    | type    | default | description
-:-------|:--------|:--------|:-------------------------
-timeout | integer | 5000    | Request time out in ms
-iface   | string  |         | Outbound interface to use
+name      | type    | default                                                       | description
+:---------|:--------|:--------------------------------------------------------------|:-------------------------
+timeout   | integer | `5000`                                                        | Request time out in ms
+iface     | string  |                                                               | Outbound interface to use
+baseURL   | string  | `http://requestb.in/api/v1/`                                  | API Base URL
+userAgent | string | `requestbin.js (https://github.com/fvdm/nodejs-requestbin)`  | User Agent
 
 ```js
 requestbin.config ({
@@ -142,7 +144,7 @@ requestbin.requests ('oiwxgloi', console.log);
     form_data: [],
     remote_addr: '1.2.3.4',
     method: 'GET',
-    headers: 
+    headers:
      { Host: 'requestb.in',
        Connection: 'keep-alive',
        Accept: '*/*',
