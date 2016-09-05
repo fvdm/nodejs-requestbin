@@ -26,11 +26,12 @@ var config = {
  * @callback callback
  * @param res {object} - httpreq response
  * @param err {Error|null} - httpreq error
+ * @param options {object} - httpreq options
  * @param callback {function} - `function (err, data) {}`
  * @return {void}
  */
 
-function processResponse (res, err, callback) {
+function processResponse (res, err, options, callback) {
   var data = res && res.body || null;
   var error = null;
 
@@ -98,7 +99,7 @@ function talk (method, path, props, callback) {
   }
 
   httpreq.doRequest (options, function (err, res) {
-    processResponse (res, err, callback);
+    processResponse (res, err, options, callback);
   });
 }
 
