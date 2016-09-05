@@ -1,3 +1,13 @@
+/*
+Name:           requestbin
+Description:    Node.js package to access the Requestb.in API
+Author:         Franklin van de Meent (https://frankl.in)
+License:        Unlicence (public domain, see LICENSE file)
+Source & docs:  https://github.com/fvdm/nodejs-requestbin
+Feedback:       https://github.com/fvdm/nodejs-requestbin/issues
+*/
+
+
 var httpreq = require ('httpreq');
 var config = {
   timeout: 5000,
@@ -5,6 +15,18 @@ var config = {
   baseURL: null,
   userAgent: null
 };
+
+
+/**
+ * Communicate with API
+ *
+ * @callback callback
+ * @param method {string} - HTTP method, GET, POST, etc
+ * @param path {string} - Request path
+ * @param [props] {object} - Send query or POST parameters
+ * @param callback {function} - `function (err, data) {}`
+ * @return {void}
+ */
 
 function talk (method, path, props, callback) {
   var options = {
@@ -60,6 +82,7 @@ function talk (method, path, props, callback) {
     callback (null, data);
   });
 }
+
 
 module.exports = {
   config: function (props) {
