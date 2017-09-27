@@ -1,3 +1,45 @@
+#### 1.5.1 (2017-09-27)
+
+##### Chores
+
+* **develop:** Added package-lock.json ([e923219d](https://github.com/fvdm/nodejs-requestbin/commit/e923219d8de27cfd4022e7fb49f479d48d50f064))
+* **package:**
+  * Update dependencies ([0373dff1](https://github.com/fvdm/nodejs-requestbin/commit/0373dff131c8df70c3e2fc2e1fa24dce1122fa92))
+  * Update dotest dev dep ([64c449e7](https://github.com/fvdm/nodejs-requestbin/commit/64c449e7e87e2dbe8a2b898ab8108b8f4d614c1f))
+  * Update dev deps ([1cc6b8ab](https://github.com/fvdm/nodejs-requestbin/commit/1cc6b8ab23bdfc42aaad69d6708d23105372a9cf))
+
+##### Documentation Changes
+
+* **readme:** Add coffee button to Author ([d3448673](https://github.com/fvdm/nodejs-requestbin/commit/d3448673071efbca504fb7b265951a2c336d4765))
+* **badges:**
+  * Fixed wrong branch ([e58644d5](https://github.com/fvdm/nodejs-requestbin/commit/e58644d5cb4c8aeef60e910685f954c65e2f10af))
+  * Added coverage status ([be1bccad](https://github.com/fvdm/nodejs-requestbin/commit/be1bccada6516fb192b1aa97148ccd0318246f8d))
+
+##### Bug Fixes
+
+* **talk:** Changed base url to HTTPS (#11) ([f076fff0](https://github.com/fvdm/nodejs-requestbin/commit/f076fff079f63ed31057cf6375860443243aba13))
+* **response:**
+  * doError calls should include options ([f343eac2](https://github.com/fvdm/nodejs-requestbin/commit/f343eac272377cb90001a0b03dc6416e396b7afc))
+  * Rewrite error response (#11) ([b51a9861](https://github.com/fvdm/nodejs-requestbin/commit/b51a9861b58b26c24b1eb8de055ce7196a3f2c61))
+* **doError:** Fixed missing options (#11) ([65516ab2](https://github.com/fvdm/nodejs-requestbin/commit/65516ab23087271db14aea95244215bb797976a6))
+
+##### Code Style Changes
+
+* **main:**
+  * Minor comment edits ([808524a5](https://github.com/fvdm/nodejs-requestbin/commit/808524a54c2c9350d3f65bea809f4b75b1528769))
+  * Clean up JSDoc syntax ([66063708](https://github.com/fvdm/nodejs-requestbin/commit/660637089b36c1fbc9c01986f7e96dee6ffa4285))
+* **response:** Removed old error var ([e0f7dbb0](https://github.com/fvdm/nodejs-requestbin/commit/e0f7dbb04ebb0db2198d28dea3f01cea4461cd3f))
+
+##### Tests
+
+* **config:**
+  * Replaced node 7 with 8 on Travis ([b1ab64fe](https://github.com/fvdm/nodejs-requestbin/commit/b1ab64fee099ba669047407de4084198f37d58ba))
+  * Travis CI update node versions ([77482d04](https://github.com/fvdm/nodejs-requestbin/commit/77482d04fe5077d265319f632f9c546d245767aa))
+  * Use dynamic node versions on Travis CI ([070c1451](https://github.com/fvdm/nodejs-requestbin/commit/070c14515dbb47b5e538edbbab3190c534d652c3))
+* **main:**
+  * Minor fixes ([17cf5a8a](https://github.com/fvdm/nodejs-requestbin/commit/17cf5a8a82eb6bcf94a57fb4e92597d13a43ecb8))
+  * Don’t skip tests ([962029a8](https://github.com/fvdm/nodejs-requestbin/commit/962029a8ee0d69175c70636648d37383bbad10d7))
+
 ### 1.5.0 (2016-9-5)
 
 ##### Chores
