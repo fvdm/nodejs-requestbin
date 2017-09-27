@@ -24,11 +24,12 @@ var config = {
  * @param     {string}    msg       Error message
  * @param     {mixed}     err       Error details
  * @param     {object}    res       httpreq response
+ * @param     {object}    options   request options
  * @param     {function}  callback  `(err)`
  * @return    {void}
  */
 
-function doError (msg, err, res, callback) {
+function doError (msg, err, res, options, callback) {
   var error = new Error (msg);
 
   error.httpCode = res && res.statusCode || null;
