@@ -62,12 +62,12 @@ function processResponse (res, err, options, callback) {
   var data = res && res.body || null;
 
   if (err) {
-    doError ('request failed', err, res, callback);
+    doError ('request failed', err, res, options, callback);
     return;
   }
 
   if (res && res.statusCode >= 300) {
-    doError ('HTTP error', null, res, callback);
+    doError ('HTTP error', null, res, options, callback);
     return;
   }
 
@@ -75,7 +75,7 @@ function processResponse (res, err, options, callback) {
     data = JSON.parse (data);
     callback (null, data);
   } catch (e) {
-    doError ('invalid response', e, res, callback);
+    doError ('invalid response', e, res, options, callback);
   }
 }
 
