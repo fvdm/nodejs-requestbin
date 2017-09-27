@@ -65,11 +65,6 @@ dotest.add ('.create', function () {
 
 
 dotest.add ('.get', function () {
-  if (!cache.bin) {
-    console.log ('skip - .get');
-    return;
-  }
-
   app.get (cache.bin.name, function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
@@ -80,11 +75,6 @@ dotest.add ('.get', function () {
 
 
 dotest.add ('.requests', function () {
-  if (!cache.bin) {
-    console.log ('skip - .requests');
-    return;
-  }
-
   app.requests (cache.bin.name, function (err, data) {
     cache.request = data && data [0] || null;
     dotest.test (err)
@@ -97,11 +87,6 @@ dotest.add ('.requests', function () {
 
 
 dotest.add ('.request', function () {
-  if (!cache.request) {
-    console.log ('skip - .request');
-    return;
-  }
-
   app.request (cache.bin.name, cache.request.id, function (err, data) {
     dotest.test (err)
       .isObject ('fail', 'data', data)
