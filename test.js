@@ -34,10 +34,10 @@ app.config ({
 });
 
 
-dotest.add ('Error: request failed', function () {
+dotest.add ('Error: request failed', function (test) {
   app.config ({ timeout: 1 });
   app.create ('invalid', function (err) {
-    dotest.test ()
+    test ()
       .isError ('fail', 'err', err)
       .isExactly ('fail', 'err.message', err && err.message, 'request failed')
       .isError ('fail', 'err.error', err && err.error)
@@ -46,17 +46,17 @@ dotest.add ('Error: request failed', function () {
 });
 
 
-dotest.add ('.create', function () {
+dotest.add ('.create', function (test) {
   app.config ({ timeout: timeout });
   app.create (false, function (err, data) {
     cache.bin = data || null;
 
     if (data) {
-      http.post ('http://requestb.in/' + data.name, { parameters: cache.post }, function () {});
-      dotest.log ('info', 'http://requestb.in/' + data.name + '?inspect');
+      http.post ('https://requestb.in/' + data.name, { parameters: cache.post }, function () {});
+      dotest.log ('info', 'https://requestb.in/' + data.name + '?inspect');
     }
 
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isString ('warn', 'data.name', data && data.name)
       .done ();
@@ -64,9 +64,9 @@ dotest.add ('.create', function () {
 });
 
 
-dotest.add ('.get', function () {
+dotest.add ('.get', function (test) {
   app.get (cache.bin.name, function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('warn', 'data.name', data && data.name, cache.bin.name)
       .done ();
@@ -74,10 +74,10 @@ dotest.add ('.get', function () {
 });
 
 
-dotest.add ('.requests', function () {
+dotest.add ('.requests', function (test) {
   app.requests (cache.bin.name, function (err, data) {
     cache.request = data && data [0] || null;
-    dotest.test (err)
+    test (err)
       .isArray ('fail', 'data', data)
       .isNotEmpty ('warn', 'data', data)
       .isObject ('warn', 'data[0]', data && data [0])
@@ -86,9 +86,9 @@ dotest.add ('.requests', function () {
 });
 
 
-dotest.add ('.request', function () {
+dotest.add ('.request', function (test) {
   app.request (cache.bin.name, cache.request.id, function (err, data) {
-    dotest.test (err)
+    test (err)
       .isObject ('fail', 'data', data)
       .isExactly ('warn', 'data.id', data && data.id, cache.request.id)
       .done ();
