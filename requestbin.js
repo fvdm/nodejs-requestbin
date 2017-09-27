@@ -18,6 +18,32 @@ var config = {
 
 
 /**
+ * Build an error
+ *
+ * @callback  callback
+ * @param     {string}    msg       Error message
+ * @param     {mixed}     err       Error details
+ * @param     {object}    res       httpreq response
+ * @param     {function}  callback  `(err)`
+ * @return    {void}
+ */
+
+function doError (msg, err, res, callback) {
+  var error = new Error (msg);
+
+  error.httpCode = res && res.statusCode || null;
+  error.error = err || null;
+  error.request = options;
+  error.response = {
+    headers: res && res.headers,
+    body: res && res.body
+  };
+
+  callback (error);
+}
+
+
+/**
  * Process response
  *
  * argument order is to prevent callback
@@ -36,36 +62,21 @@ function processResponse (res, err, options, callback) {
   var error = null;
 
   if (err) {
-    error = new Error ('request failed');
-    error.error = err;
-    callback (error);
+    doError ('request failed', err, res, callback);
     return;
   }
 
   if (res && res.statusCode >= 300) {
-    error = new Error ('HTTP error');
+    doError ('HTTP error', null, res, callback);
     return;
   }
 
   try {
     data = JSON.parse (data);
+    callback (null, data);
   } catch (e) {
-    error = new Error ('invalid response');
+    doError ('invalid response', e, res, callback);
   }
-
-  if (error) {
-    error.httpCode = res.statusCode;
-    error.request = options;
-    error.response = {
-      headers: res.headers,
-      body: data
-    };
-
-    callback (error);
-    return;
-  }
-
-  callback (null, data);
 }
 
 
