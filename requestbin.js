@@ -60,7 +60,6 @@ function doError (msg, err, res, options, callback) {
 
 function processResponse (res, err, options, callback) {
   var data = res && res.body || null;
-  var error = null;
 
   if (err) {
     doError ('request failed', err, res, callback);
