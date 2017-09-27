@@ -137,7 +137,7 @@ function methodConfig (props) {
  * @callback  callback
  * @param     {boolean}   [isPrivate=false]  Make instance private
  * @param     {function}  callback           `(err, data)`
- * @return {void}
+ * @return    {void}
  */
 
 function methodCreate (isPrivate, callback) {
@@ -199,7 +199,7 @@ function methodRequest (bin, request, callback) {
 /**
  * Interface methods
  *
- * @return {object} - Methods
+ * @return  {object}  Methods
  */
 
 module.exports = {
