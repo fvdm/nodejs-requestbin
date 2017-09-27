@@ -93,7 +93,7 @@ function processResponse (res, err, options, callback) {
 
 function talk (method, path, props, callback) {
   var options = {
-    url: (config.baseURL || 'http://requestb.in/api/v1/') + path,
+    url: (config.baseURL || 'https://requestb.in/api/v1/') + path,
     method: method,
     parameters: props,
     timeout: config.timeout || 5000,
