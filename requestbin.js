@@ -50,12 +50,12 @@ function doError (msg, err, res, options, callback) {
  * argument order is to prevent callback
  * handler detection in code parsers
  *
- * @callback callback
- * @param res {object} - httpreq response
- * @param err {Error|null} - httpreq error
- * @param options {object} - httpreq options
- * @param callback {function} - `function (err, data) {}`
- * @return {void}
+ * @callback  callback
+ * @param     {object}      res       httpreq response
+ * @param     {Error|null}  err       httpreq error
+ * @param     {object}      options   httpreq options
+ * @param     {function}    callback  `(err, data)`
+ * @return    {void}
  */
 
 function processResponse (res, err, options, callback) {
@@ -83,12 +83,12 @@ function processResponse (res, err, options, callback) {
 /**
  * Communicate with API
  *
- * @callback callback
- * @param method {string} - HTTP method, GET, POST, etc
- * @param path {string} - Request path
- * @param [props] {object} - Send query or POST parameters
- * @param callback {function} - `function (err, data) {}`
- * @return {void}
+ * @callback  callback
+ * @param     {string}    method    HTTP method, GET, POST, etc
+ * @param     {string}    path      Request path
+ * @param     {object}    props     Send query or POST parameters
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function talk (method, path, props, callback) {
@@ -118,8 +118,8 @@ function talk (method, path, props, callback) {
 /**
  * Set configuration
  *
- * @param props {object} - Config parameters
- * @return {void}
+ * @param   {object}  props  Config parameters
+ * @return  {void}
  */
 
 function methodConfig (props) {
@@ -134,9 +134,9 @@ function methodConfig (props) {
 /**
  * Create request instance
  *
- * @callback callback
- * @param [isPrivate = false] {boolean} - Make instance private
- * @param callback {function} - `function (err, data) {}`
+ * @callback  callback
+ * @param     {boolean}   [isPrivate=false]  Make instance private
+ * @param     {function}  callback           `(err, data)`
  * @return {void}
  */
 
@@ -156,10 +156,10 @@ function methodCreate (isPrivate, callback) {
 /**
  * Get a request instance
  *
- * @callback callback
- * @param bin {string} - Bin instance ID
- * @param callback {function} - `function (err, data) {}`
- * @return {void}
+ * @callback  callback
+ * @param     {string}    bin       Bin instance ID
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function methodGet (bin, callback) {
@@ -170,10 +170,10 @@ function methodGet (bin, callback) {
 /**
  * Get received requests
  *
- * @callback callback
- * @param bin {string} - Bin instance ID
- * @param callback {function} - `function (err, data) {}`
- * @return {void}
+ * @callback  callback
+ * @param     {string}    bin       Bin instance ID
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function methodRequests (bin, callback) {
@@ -184,11 +184,11 @@ function methodRequests (bin, callback) {
 /**
  * Get one received request
  *
- * @callback callback
- * @param bin {string} - Bin instance ID
- * @param request {string} - Request ID
- * @param callback {function} - `function (err, data) {}`
- * @return {void}
+ * @callback  callback
+ * @param     {string}    bin       Bin instance ID
+ * @param     {string}    request   Request ID
+ * @param     {function}  callback  `(err, data)`
+ * @return    {void}
  */
 
 function methodRequest (bin, request, callback) {
