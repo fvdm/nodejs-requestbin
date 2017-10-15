@@ -1,6 +1,8 @@
 requestbin
 ==========
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/fvdm/nodejs-requestbin.svg)](https://greenkeeper.io/)
+
 [RequestBin](http://requestb.in/) API methods for Node.js
 
 [![npm](https://img.shields.io/npm/v/requestbin.svg?maxAge=3600)](https://github.com/fvdm/nodejs-requestbin/blob/master/CHANGELOG.md)
