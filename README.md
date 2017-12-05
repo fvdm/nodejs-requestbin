@@ -8,6 +8,7 @@ requestbin
 [![Coverage Status](https://coveralls.io/repos/github/fvdm/nodejs-requestbin/badge.svg?branch=master)](https://coveralls.io/github/fvdm/nodejs-requestbin?branch=master)
 [![Dependencies](https://www.bithound.io/github/fvdm/nodejs-requestbin/badges/dependencies.svg)](https://www.bithound.io/github/fvdm/nodejs-requestbin/master/dependencies/npm)
 [![Code Quality](https://www.bithound.io/github/fvdm/nodejs-requestbin/badges/code.svg)](https://www.bithound.io/github/fvdm/nodejs-requestbin)
+[![Greenkeeper badge](https://badges.greenkeeper.io/fvdm/nodejs-requestbin.svg)](https://greenkeeper.io/)
 
 
 Usage
